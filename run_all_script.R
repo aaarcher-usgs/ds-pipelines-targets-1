@@ -27,11 +27,26 @@ source(file = '2_process/src/process_fcn.R')
 source(file = '3_visualize/src/line_range_plot_fcn.R')
 source(file = '3_visualize/src/diagnostic_log_fcn.R')
 
-# 1 Fetch the data by defining sb_id
-sb_id = '5d925066e4b0c4f70d0d0599'
-fetch(sb_id = sb_id)
 
-rawdata_dir <- '1_fetch/out/model_RMSEs.csv'
+#' ## Set global definitions
+#' 
+#' Define ScienceBase ID
+sb_id = '5d925066e4b0c4f70d0d0599'
+
+#' Define input and output directories
+#' 
+
+# Raw data from fetch()
+rawdata_out_dir <- '1_fetch/out'
+rawdata_out_file <- '1_fetch/out/model_RMSEs.csv'
+
+#' ## Step 1: Fetch the data
+#' 
+#' Uses ScienceBase ID (`sb_id`) to locate and download raw data
+#' 
+fetch(sb_id = sb_id, out_dir = rawdata_out_dir)
+
+
 
 # 2 Process data for plotting and save as .csv
 process(input = rawdata_dir)
