@@ -12,6 +12,7 @@ library(readr)
 library(stringr)
 library(sbtools)
 library(whisker)
+library(devtools)
 
 #' Clear environment (optional)
 #' 
@@ -94,3 +95,7 @@ diagnostic_log(input_file = process_out_file,
                output_file = log_output_file,
                model_type = model_IDs,
                exper_num = exper_temps)
+
+#' ## Footer
+#'
+devtools::session_info()
