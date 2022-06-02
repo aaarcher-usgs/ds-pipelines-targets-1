@@ -5,22 +5,32 @@
 #' @param input_file chr, file path of the subfolder where processed data is saved
 #' 
 #' @param output_file chr, file path where the final diagnostic log will be saved
+#' 
+#' @param model_type chr vector, list of model types by IDs 
+#' 
+#' @param exper_num numerical vector, list of experimental temperatures (numerical)
 #'
-diagnostic_log <- function(input_file, output_file){
+diagnostic_log <- function(input_file, output_file, model_type, exper_num){
   
   # Load in the processed data
   input_data <- read.csv(input_file)
   
   # Save the model diagnostics
-  render_data <- list(pgdl_980mean = filter(input_data, model_type == 'pgdl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
-                      dl_980mean = filter(input_data, model_type == 'dl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_980mean = filter(input_data, model_type == 'pb', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
-                      dl_500mean = filter(input_data, model_type == 'dl', exper_id == "similar_500") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_500mean = filter(input_data, model_type == 'pb', exper_id == "similar_500") %>% pull(rmse) %>% mean %>% round(2),
-                      dl_100mean = filter(input_data, model_type == 'dl', exper_id == "similar_100") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_100mean = filter(input_data, model_type == 'pb', exper_id == "similar_100") %>% pull(rmse) %>% mean %>% round(2),
-                      pgdl_2mean = filter(input_data, model_type == 'pgdl', exper_id == "similar_2") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_2mean = filter(input_data, model_type == 'pb', exper_id == "similar_2") %>% pull(rmse) %>% mean %>% round(2))
+  render_data <- NULL
+  
+  for(mm in 1:length(model_type)){ #for each model type
+    for(ee in 1:length(exper_num)){ # and each exper id 
+      
+      # filter data based on model type and exper id
+      filterdata <- input_data[input_data$model_type == model_type[mm] & 
+                                 input_data$n_prof == exper_num[ee],]
+      
+      # calculate mean RMSE and store in list
+      templist <- list(filterdata %>% pull(rmse) %>% mean %>% round(2))
+      names(templist) <- paste0(model_type[mm], "_", exper_num[ee], "mean")
+      render_data <- append(x = render_data, values = templist)
+      }
+  }
   
   template_1 <- 'resulted in mean RMSEs (means calculated as average of RMSEs from the five dataset iterations) of {{pgdl_980mean}}, {{dl_980mean}}, and {{pb_980mean}}°C for the PGDL, DL, and PB models, respectively.
   The relative performance of DL vs PB depended on the amount of training data. The accuracy of Lake Mendota temperature predictions from the DL was better than PB when trained on 500 profiles 

@@ -48,6 +48,10 @@ process_out_file <- paste0(process_out_dir, 'model_summary_results.csv')
 col_model_type <- c('#1b9e77', '#d95f02', '#7570b3') #pb, dl, pgdl, respectively
 pch_model_type <- c(21, 22, 23) #pb, dl, pgdl, respectively
 
+# Model names and experimental temperatures for diagnostic log
+model_IDs <- c("pb", "dl", "pgdl")
+exper_temps <- c(980, 500, 100, 2)
+
 # Line Range figure output 
 plot_output_dir <- "3_visualize/out/"
 plot_output_file <- paste0(plot_output_dir, "figure_1.png")
@@ -87,4 +91,6 @@ line_range_plot(input_file = process_out_file,
 #' Write the diagnostic log to a text file
 #' 
 diagnostic_log(input_file = process_out_file, 
-               output_file = log_output_file)
+               output_file = log_output_file,
+               model_type = model_IDs,
+               exper_num = exper_temps)
