@@ -1,11 +1,21 @@
-line_range_plot <- function(input_dir){
+#' # Define line_range_plot() function
+#' 
+#' The `line_range_plot()` function creates a figure of model diagnostic results.
+#' 
+#' @param input_file chr, file path of the subfolder where processed data is saved
+#' 
+#' @param output_file chr, file path where the final figure will be saved
+#' 
+#' @param col_v vector, hex colors for the three types of model_types
+#' 
+#' @param pch_v vector, pch values for the three types of model_types
+#'
+line_range_plot <- function(input_file, output_file, col_v, pch_v){
   
-  project_output_dir <- "3_visualize/out"
-  
-  input_data <- read.csv(input_dir)
+  input_data <- read.csv(input_file)
   
   # Create a plot
-  png(file = file.path(project_output_dir, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
+  png(file = file.path(output_file), width = 8, height = 10, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
   
   plot(NA, NA, xlim = c(2, 1000), ylim = c(4.7, 0.75),
@@ -36,13 +46,13 @@ line_range_plot <- function(input_dir){
     
   }
   
-  points(2.2, 0.79, col = '#7570b3', pch = 23, bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 0.79, col = col_v[3], pch = pch_v[3], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 0.80, 'Process-Guided Deep Learning', pos = 4, cex = 1.1)
   
-  points(2.2, 0.94, col = '#d95f02', pch = 22, bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 0.94, col = col_v[2], pch = pch_v[2], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 0.95, 'Deep Learning', pos = 4, cex = 1.1)
   
-  points(2.2, 1.09, col = '#1b9e77', pch = 21, bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 1.09, col = col_v[1], pch = pch_v[1], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()

@@ -7,9 +7,9 @@
 #' 
 #' @param output_file chr, file path of the subfolder where processed data will be saved 
 #' 
-#' @param col_v vec, hex colors for the three types of model_types
+#' @param col_v vector, hex colors for the three types of model_types
 #' 
-#' @param pch_v
+#' @param pch_v vector, pch values for the three types of model_types
 process <- function(input_data, output_file, col_model_type, pch_model_type){
   
   # Prepare the data for plotting
