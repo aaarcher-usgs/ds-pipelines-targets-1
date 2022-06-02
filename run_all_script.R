@@ -25,7 +25,7 @@ rm(list = ls())
 source(file = '1_fetch/src/fetch_fcn.R')
 source(file = '2_process/src/process_fcn.R')
 source(file = '3_visualize/src/line_range_plot_fcn.R')
-source(file = '3_visualize/src/diagnostic_log_fnc.R')
+source(file = '3_visualize/src/diagnostic_log_fcn.R')
 
 # 1 Fetch the data by defining sb_id
 sb_id = '5d925066e4b0c4f70d0d0599'
@@ -39,6 +39,6 @@ process(input = rawdata_dir)
 processed_data_dir <- '2_process/out/model_summary_results.csv'
 
 # 3 Visualize the results and write the diagnostic log 
-viz(input_dir = processed_data_dir)
+line_range_plot(input_dir = processed_data_dir)
 
-whisker(input_dir = processed_data_dir)
+diagnostic_log(input_dir = processed_data_dir)
