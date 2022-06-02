@@ -14,10 +14,6 @@ library(sbtools)
 library(whisker)
 library(devtools)
 
-#' Clear environment (optional)
-#' 
-rm(list = ls())
-
 
 #' ## Load source functions 
 #' 
