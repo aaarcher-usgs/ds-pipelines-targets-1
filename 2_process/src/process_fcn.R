@@ -28,6 +28,7 @@ process <- function(input_data, output_file, col_model_type, pch_model_type){
   # Save the processed data
   readr::write_csv(eval_data, file = file.path(output_file))
   
+  print(output_file)
 }
 
 

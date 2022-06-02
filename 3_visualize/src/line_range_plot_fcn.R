@@ -57,5 +57,5 @@ line_range_plot <- function(input_file, output_file, col_v, pch_v){
   
   dev.off()
   
-  
+  print(output_file)
 }

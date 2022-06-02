@@ -42,6 +42,6 @@ diagnostic_log <- function(input_file, output_file, model_type, exper_num){
                    str_replace_all('  ', ' '), render_data ) %>% 
     cat(file = file.path(output_file))
   
-  
+  print(output_file)
 }
 
