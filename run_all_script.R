@@ -38,20 +38,34 @@ sb_id = '5d925066e4b0c4f70d0d0599'
 
 # Raw data from fetch()
 rawdata_out_dir <- '1_fetch/out'
-rawdata_out_file <- '1_fetch/out/model_RMSEs.csv'
+rawdata_out_file <- paste0(rawdata_out_dir, 'model_RMSEs.csv')
+
+# Processed data from process()
+process_out_dir <- '2_process/out/'
+process_out_file <- paste0(process_out_dir, 'model_summary_results.csv')
+
+# Color and pch values
+col_model_type <- c('#1b9e77', '#d95f02', '#7570b3') #pb, dl, pgdl, respectively
+pch_model_type <- c(21, 22, 23) #pb, dl, pgdl, respectively
+
 
 #' ## Step 1: Fetch the data
 #' 
-#' Uses ScienceBase ID (`sb_id`) to locate and download raw data
+#' Use ScienceBase ID (`sb_id`) to locate and download raw data
 #' 
-fetch(sb_id = sb_id, out_dir = rawdata_out_dir)
+fetch(sb_id = sb_id, out_file = rawdata_out_file)
 
 
 
-# 2 Process data for plotting and save as .csv
-process(input = rawdata_dir)
+#' ## Step 2: Process data for plotting and save as .csv
+#' 
+#' Process raw data into a form for plotting *and* save processed data as .csv
+#' 
+process(input_data = rawdata_out_file, 
+        output_file = process_out_file,
+        col_model_type = col_model_type,
+        pch_model_type = pch_model_type)
 
-processed_data_dir <- '2_process/out/model_summary_results.csv'
 
 # 3 Visualize the results and write the diagnostic log 
 line_range_plot(input_dir = processed_data_dir)
