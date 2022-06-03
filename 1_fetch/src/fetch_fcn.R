@@ -11,7 +11,8 @@
 fetch <- function(sb_id, out_file){
   # Get the data from ScienceBase
   rawdata_file <- file.path(out_file)
-  sbtools::item_file_download(sb_id, names = 'me_RMSE.csv', destinations = rawdata_file, overwrite_file = TRUE)
+  sbtools::item_file_download(sb_id, names = 'me_RMSE.csv', 
+                              destinations = rawdata_file, overwrite_file = TRUE)
 }
 
 

@@ -2,18 +2,16 @@
 #' 
 #' The `line_range_plot()` function creates a figure of model diagnostic results.
 #' 
-#' @param input_file chr, file path of the subfolder where processed data is saved
+#' @param input_data chr, file path of the subfolder where processed data is saved
 #' 
 #' @param output_file chr, file path where the final figure will be saved
 #' 
-#' @param col_v vector, hex colors for the three types of model_types
+#' @param col_v chr vector, hex colors for the three types of model_types
 #' 
-#' @param pch_v vector, pch values for the three types of model_types
+#' @param pch_v chr vector, pch values for the three types of model_types
 #'
-line_range_plot <- function(input_file, output_file, col_v, pch_v){
-  
-  input_data <- read.csv(input_file)
-  
+line_range_plot <- function(input_data, output_file, col_v, pch_v){
+
   # Create a plot
   png(file = file.path(output_file), width = 8, height = 10, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
@@ -56,6 +54,4 @@ line_range_plot <- function(input_file, output_file, col_v, pch_v){
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()
-  
-  print(output_file)
 }

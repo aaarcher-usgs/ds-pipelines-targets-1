@@ -4,6 +4,7 @@ library(targets)
 # and finally create a diagnostic log (`diagnostic_log()`) and associated figure (`line_range_plot()`).
 source(file = '1_fetch/src/fetch_fcn.R')
 source(file = '2_process/src/process_fcn.R')
+source(file = '2_process/src/write_csv_fcn.R')
 source(file = '3_visualize/src/line_range_plot_fcn.R')
 source(file = '3_visualize/src/diagnostic_log_fcn.R')
 
@@ -21,33 +22,29 @@ list(
   tar_target(
     eval_data,
     process(input_data = model_RMSEs_csv,
-            output_file = '2_process/out/model_summary_results.csv',
             col_model_type = c('#1b9e77', '#d95f02', '#7570b3'), #pb, dl, pgdl, respectively,
-            pch_model_type = c(21, 22, 23)), #pb, dl, pgdl, respectively),
-    format = "file"
+            pch_model_type = c(21, 22, 23)) #pb, dl, pgdl, respectively),
   ),
   # Create a plot
   tar_target(
     figure_1_png,
-    line_range_plot(input_file = eval_data,
+    line_range_plot(input_data = eval_data,
                     output_file = "3_visualize/out/figure_1.png", 
                     col_v = c('#1b9e77', '#d95f02', '#7570b3'), #pb, dl, pgdl, respectively,
-                    pch_v = c(21, 22, 23)), #pb, dl, pgdl, respectively
-    format = "file"
+                    pch_v = c(21, 22, 23)) #pb, dl, pgdl, respectively
   ),
-  # Save the processed data ## I don't think I need this, saved the process data in processing phase?
-  # tar_target(
-  #   model_summary_results_csv,
-  #   (eval_data, file = "model_summary_results.csv"), 
-  #   format = "file"
-  # ),
+  # Save the processed data 
+  tar_target(
+     model_summary_results_csv,
+     write_csv_fcn(input_data = eval_data, 
+                   output_file = "2_process/out/model_summary_results.csv")
+   ),
   # Save the model diagnostics
   tar_target(
     model_diagnostic_text_txt,
-    diagnostic_log(output_file = "model_diagnostic_text.txt", 
-                   input_file = eval_data,
+    diagnostic_log(output_file = "3_visualize/out/model_diagnostic_text.txt", 
+                   input_data = eval_data,
                    model_type = c("pb", "dl", "pgdl"),
-                   exper_num = c(980, 500, 100, 2)), 
-    format = "file"
+                   exper_num = c(980, 500, 100, 2))
   )
 )
