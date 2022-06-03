@@ -1,8 +1,8 @@
 #' # Define diagnostic_log() function
 #' 
-#' The `diagnostic_log()` function creates a text file of model diagnostic results.
+#' @description The `diagnostic_log()` function creates a text file of model diagnostic results.
 #' 
-#' @param input_file chr, file path of the subfolder where processed data is saved
+#' @param input_data data.frame, input object (processed data)
 #' 
 #' @param output_file chr, file path where the final diagnostic log will be saved
 #' 
@@ -10,10 +10,7 @@
 #' 
 #' @param exper_num numerical vector, list of experimental temperatures (numerical)
 #'
-diagnostic_log <- function(input_file, output_file, model_type, exper_num){
-  
-  # Load in the processed data
-  input_data <- read.csv(input_file)
+diagnostic_log <- function(input_data, output_file, model_type, exper_num){
   
   # Save the model diagnostics
   render_data <- NULL
@@ -42,6 +39,6 @@ diagnostic_log <- function(input_file, output_file, model_type, exper_num){
                    str_replace_all('  ', ' '), render_data ) %>% 
     cat(file = file.path(output_file))
   
-  
+  return(output_file)
 }
 
