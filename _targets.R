@@ -21,9 +21,16 @@ list(
   # Prepare the data for plotting
   tar_target(
     eval_data,
-    process(input_data = model_RMSEs_csv,
+    process(input_file = model_RMSEs_csv,
             col_model_type = c('#1b9e77', '#d95f02', '#7570b3'), #pb, dl, pgdl, respectively,
             pch_model_type = c(21, 22, 23)) #pb, dl, pgdl, respectively),
+  ),
+  # Save the processed data 
+  tar_target(
+    model_summary_results_csv,
+    write_csv_fcn(input_data = eval_data, 
+                  output_file = "2_process/out/model_summary_results.csv"),
+    format = "file"
   ),
   # Create a plot
   tar_target(
@@ -31,20 +38,16 @@ list(
     line_range_plot(input_data = eval_data,
                     output_file = "3_visualize/out/figure_1.png", 
                     col_v = c('#1b9e77', '#d95f02', '#7570b3'), #pb, dl, pgdl, respectively,
-                    pch_v = c(21, 22, 23)) #pb, dl, pgdl, respectively
+                    pch_v = c(21, 22, 23)), #pb, dl, pgdl, respectively,
+    format = "file"
   ),
-  # Save the processed data 
-  tar_target(
-     model_summary_results_csv,
-     write_csv_fcn(input_data = eval_data, 
-                   output_file = "2_process/out/model_summary_results.csv")
-   ),
   # Save the model diagnostics
   tar_target(
     model_diagnostic_text_txt,
     diagnostic_log(output_file = "3_visualize/out/model_diagnostic_text.txt", 
                    input_data = eval_data,
                    model_type = c("pb", "dl", "pgdl"),
-                   exper_num = c(980, 500, 100, 2))
+                   exper_num = c(980, 500, 100, 2)),
+    format = "file"
   )
 )

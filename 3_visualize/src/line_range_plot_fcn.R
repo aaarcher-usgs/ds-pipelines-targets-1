@@ -1,8 +1,8 @@
 #' # Define line_range_plot() function
 #' 
-#' The `line_range_plot()` function creates a figure of model diagnostic results.
+#' @description The `line_range_plot()` function creates a figure of model diagnostic results.
 #' 
-#' @param input_data chr, file path of the subfolder where processed data is saved
+#' @param input_data data.frame, input object (processed data)
 #' 
 #' @param output_file chr, file path where the final figure will be saved
 #' 
@@ -54,4 +54,6 @@ line_range_plot <- function(input_data, output_file, col_v, pch_v){
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()
+  
+  return(output_file)
 }

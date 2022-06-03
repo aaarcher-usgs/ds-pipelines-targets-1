@@ -1,6 +1,6 @@
 #' # Define fetch() function
 #' 
-#' The `fetch()` function downloads the raw data from ScienceBase based on defined
+#' @description The `fetch()` function downloads the raw data from ScienceBase based on defined
 #' ScienceBase ID (argument `sb_id`) and saves it as a .csv in the appropriate out/ directory
 #' (argument `out_file`)
 #' 

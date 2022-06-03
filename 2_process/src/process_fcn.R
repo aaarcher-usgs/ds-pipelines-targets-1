@@ -1,17 +1,18 @@
 #' # Define process() function
 #' 
-#' The `process()` function filters the data and assigns colors/pch values based on
+#' @description The `process()` function filters the data and assigns colors/pch values based on
 #' model_type.
 #' 
-#' @param input_data chr, input object (raw data)
+#' @param input_file data.frame, input object (raw data)
 #' 
 #' @param col_v vector, hex colors for the three types of model_types
 #' 
 #' @param pch_v vector, pch values for the three types of model_types
-process <- function(input_data, col_model_type, pch_model_type){
+#' 
+process <- function(input_file, col_model_type, pch_model_type){
   
   # Prepare the data for plotting
-  eval_data <- readr::read_csv(input_data, col_types = 'iccd') %>%
+  readr::read_csv(input_file, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
       model_type == 'pb' ~ col_model_type[1],
