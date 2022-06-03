@@ -3,7 +3,7 @@
 #' @description The `process()` function filters the data and assigns colors/pch values based on
 #' model_type.
 #' 
-#' @param input_file data.frame, input object (raw data)
+#' @param input_file chr, directory to where input object (raw data) is saved
 #' 
 #' @param col_v vector, hex colors for the three types of model_types
 #' 
